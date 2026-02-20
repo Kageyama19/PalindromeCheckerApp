@@ -3,32 +3,36 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=== Character Array Based Palindrome Checker ===");
+        System.out.println("=== Deque Based Palindrome Checker ===");
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        // Preprocess: remove spaces and convert to lowercase
+        // Preprocess input
         String processedInput = input.replaceAll("\\s+", "").toLowerCase();
 
-        // Step 1: Convert string to char array
-        char[] characters = processedInput.toCharArray();
+        // Step 1: Create Deque
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Step 2: Two-pointer approach
-        int start = 0;
-        int end = characters.length - 1;
+        // Step 2: Insert characters into deque
+        for (int i = 0; i < processedInput.length(); i++) {
+            deque.addLast(processedInput.charAt(i));
+        }
 
         boolean isPalindrome = true;
 
-        while (start < end) {
-            if (characters[start] != characters[end]) {
+        // Step 3: Compare front and rear
+        while (deque.size() > 1) {
+
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            if (front != rear) {
                 isPalindrome = false;
                 break;
             }
-            start++;
-            end--;
         }
 
-        // Step 3: Print result
+        // Step 4: Print result
         if (isPalindrome) {
             System.out.println("Result: It is a Palindrome ✅");
         } else {
@@ -36,6 +40,5 @@ public class PalindromeCheckerApp {
         }
 
         scanner.close();
-
     }
 }
