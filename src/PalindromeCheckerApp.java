@@ -2,33 +2,43 @@ import java.util.*;
 public class PalindromeCheckerApp {
 
 
-        // Recursive method
-        public static boolean isPalindrome(String str, int start, int end) {
 
-            // Base condition
-            if (start >= end) {
-                return true;
+        // Method to check palindrome
+        public static boolean isPalindrome(String input) {
+
+            // 1. Normalize string
+            String processed = input
+                    .replaceAll("\\s+", "")   // Remove spaces
+                    .toLowerCase();           // Convert to lowercase
+
+            int start = 0;
+            int end = processed.length() - 1;
+
+            // 2. Apply palindrome logic
+            while (start < end) {
+                if (processed.charAt(start) != processed.charAt(end)) {
+                    return false;
+                }
+                start++;
+                end--;
             }
 
-            // If characters don't match
-            if (str.charAt(start) != str.charAt(end)) {
-                return false;
-            }
-
-            // Recursive call
-            return isPalindrome(str, start + 1, end - 1);
+            return true;
         }
 
         public static void main(String[] args) {
 
-            String input = "madam";
+            Scanner scanner = new Scanner(System.in);
 
-            boolean result = isPalindrome(input, 0, input.length() - 1);
+            System.out.print("Enter a string: ");
+            String input = scanner.nextLine();
 
-            if (result) {
-                System.out.println("Palindrome");
+            if (isPalindrome(input)) {
+                System.out.println("Palindrome (Ignoring case & spaces)");
             } else {
                 System.out.println("Not Palindrome");
             }
+
+            scanner.close();
         }
     }
